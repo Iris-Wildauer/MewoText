@@ -1,0 +1,8 @@
+<input type="text" id="input" name="input" #inputRef>
+<button class="button" type="button" (click)="sendInput(inputRef.value)">
+    test
+</button>
+<div class="card flex justify-center">
+    <textarea rows="5" cols="30" pTextarea [(ngModel)]="value">
+    </textarea>
+</div>
