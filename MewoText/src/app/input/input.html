@@ -11,5 +11,20 @@
 -->
 <!DOCTYPE html>
 <div class="InputField" (keydown)= "sendInput($event)" tabindex="0">
-    <p class="textfield"> {{text()}} </p>
+    <p class="textfield"> {{text().map(r => r.join('')).join('\n')}} </p>
+    <div class="editor">
+        @for (row of text(); track $index; let rowIndex = $index) {
+            <div class="grid-row">
+            @for (char of row; track $index; let colIndex = $index) {
+                <div class="grid-cell">
+                    {{char || '&nbsp;'}}
+                </div>
+            }
+            </div>
+        }
+        <div class="cursor">
+            [style.top.px]="cy() * lineHeight"
+            [style.left.px]="cx() * charWidth"
+        </div>
+    </div>
 </div>

@@ -4,12 +4,23 @@
     background-color: #fff0e9;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     color: white;
     font-family: sans-serif;
 }
 
 .textfield {
     color: black;
+    align-items: flex-start;
+    justify-content: left;
+    white-space: pre;
 }
+
+.editor   { position: relative; font-family: monospace; }
+.row      { height: 20px; white-space: pre; }
+.grid-row { min-height: 20px; white-space: pre; font-family: monospace; }
+.cursor   { position: absolute; width: 2px; height: 20px;
+            background: white; animation: blink 1s step-end infinite; }
+
+@keyframes blink { 50% { opacity: 0; } }

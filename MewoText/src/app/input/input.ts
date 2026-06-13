@@ -10,15 +10,23 @@ import {FormsModule} from "@angular/forms";
 })
 export class Input {
   protected value: any;
-  text = signal('');
+  lineHeight = 20;
+  charWidth  = 9.6;  // bei 16px monospace font
+  cx = signal(0);
+  cy = signal(0);
+  text = signal<string[][]>([[]]);
   async sendInput(event: KeyboardEvent){
     event.preventDefault();
-    const output = await (window as any).sendInput({cmd : event.key, char : 10});
-    this.text.update((text) => text + output);
-    console.log(output);
-  }
-  async onSearchChange(searchValue: string) :Promise<void> {
-    const output = await (window as any).onSearchChange(searchValue);
-    console.log(output);
+    const output = await (window as any).sendInput({cmd : event.key, row : 3, column : 8});
+    //this.text.update((text) => [...text[output[0].row][output[0].column], output[0].cmd]);
+    this.text.update(text => {
+    const t = text.map(r => [...r]);
+
+    while (t.length <= output[0].row) t.push([]);
+    while (t[output[0].row].length <= output[0].column) t[output[0].row].push(' ');
+
+    t[output[0].row][output[0].column] = output[0].cmd;
+    return t;
+    });
   }
 }

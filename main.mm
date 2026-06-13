@@ -7,9 +7,9 @@
 
 void printInput(const char *seq, const char *req, void *arg) {
     webview_t w = (webview_t)arg;
-    char *obj = parseJSON(req);
-    printf("Argumente: %s\n", obj);
-    webview_return(w, seq, 0, obj);
+    cJSON *obj = parseJSON(req);
+    printf("Argumente: %s\n", req);
+    webview_return(w, seq, 0, req);
 }
 
 
