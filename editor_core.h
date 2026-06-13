@@ -1,6 +1,7 @@
 #ifndef EDITOR_CORE_H
 #define EDITOR_CORE_H
+#include "cJSON.h"
 
-int parseJSON(const char *json);
+char *parseJSON(const char *json);
 
 #endif

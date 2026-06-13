@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 @Component({
   selector: 'app-input',
@@ -10,9 +10,11 @@ import {FormsModule} from "@angular/forms";
 })
 export class Input {
   protected value: any;
+  text = signal('');
   async sendInput(event: KeyboardEvent){
     event.preventDefault();
     const output = await (window as any).sendInput({cmd : event.key, char : 10});
+    this.text.update((text) => text + output);
     console.log(output);
   }
   async onSearchChange(searchValue: string) :Promise<void> {

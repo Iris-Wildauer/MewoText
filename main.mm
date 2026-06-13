@@ -2,14 +2,14 @@
 #include "webview.h"
 #include <stdlib.h>
 #include "editor_core.h"
+#include "cJSON.h"
 
 
 void printInput(const char *seq, const char *req, void *arg) {
     webview_t w = (webview_t)arg;
-    parseJSON(req);
-    //printf("%s\n", parseJSON(req));
-    //printf("Argumente: %s\n", req);
-    webview_return(w, seq, 0, req);
+    char *obj = parseJSON(req);
+    printf("Argumente: %s\n", obj);
+    webview_return(w, seq, 0, obj);
 }
 
 
