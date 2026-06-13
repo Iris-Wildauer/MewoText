@@ -1,0 +1,11 @@
+.InputField {
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff0e9;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: sans-serif;
+}

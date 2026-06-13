@@ -6,7 +6,10 @@ mewo: mewokilo.c
 	$(CC) mewo.c -o mewo -Wall -Wextra -pedantic -std=c99
 
 webview: main.mm
-	$(CXX) main.mm $(CXXFLAGS) $(FRAMEWORKS) -o basic_example
+	$(CXX) main.mm editor_core.c cJSON.c $(CXXFLAGS) $(FRAMEWORKS) -o mewo
+
+core: editor_core.c
+	$(CC) editor_core.c -o editor_core -Wall -Wextra -pedantic -std=c99
 
 clean:
 	rm -f basic_example

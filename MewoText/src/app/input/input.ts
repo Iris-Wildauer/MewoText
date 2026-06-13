@@ -10,7 +10,13 @@ import {FormsModule} from "@angular/forms";
 })
 export class Input {
   protected value: any;
-  sendInput(value: string){
-    console.log(value);
+  async sendInput(event: KeyboardEvent){
+    event.preventDefault();
+    const output = await (window as any).sendInput({cmd : event.key, char : 10});
+    console.log(output);
+  }
+  async onSearchChange(searchValue: string) :Promise<void> {
+    const output = await (window as any).onSearchChange(searchValue);
+    console.log(output);
   }
 }
