@@ -20,5 +20,23 @@
 .grid-row { height: 20px; white-space: pre; }
 .cursor   { position: absolute; width: 2px; height: 20px;
             background: black; animation: blink 1s step-end infinite; }
-
 @keyframes blink { 50% { opacity: 0; } }
+
+.container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.save {
+    margin: 10px;
+    width: 70px;
+    height: 40px;
+    font-size: 18px;
+    background-color: pink;
+}
+
+.input {
+    width: 20px;
+    height: 20px;
+}

@@ -1,16 +1,36 @@
 #include "cJSON.h"
 #include "editor_core.h"
 #include <stdio.h>
+#include <string.h>
 
-cJSON *parseJSON(const char *json) {
+static int saveFile(const char *text, const char *filename) {
+    FILE *fp = fopen(filename, "w");
+    if (!fp) return -1;
+    fputs(text, fp);
+    fclose(fp);
+    return 0;
+}
+
+const char *processCommand(const char *json) {
     cJSON *command = cJSON_Parse(json);
-    cJSON *arr     = cJSON_GetArrayItem(command, 0);
-    cJSON *cmd     = cJSON_GetObjectItem(arr, "cmd");
-    cJSON *row     = cJSON_GetObjectItem(arr, "row");
-    cJSON *column  = cJSON_GetObjectItem(arr, "column");
-    printf("cmd: %s  row: %d  col: %d\n",
-           cJSON_GetStringValue(cmd) ? cJSON_GetStringValue(cmd) : "?",
-           row    ? (int)cJSON_GetNumberValue(row)    : -1,
-           column ? (int)cJSON_GetNumberValue(column) : -1);
-    return command;
+    if (!command) return "null";
+
+    cJSON *arr    = cJSON_GetArrayItem(command, 0);
+    cJSON *cmdObj = cJSON_GetObjectItem(arr, "cmd");
+    const char *cmd = cJSON_GetStringValue(cmdObj);
+
+    if (cmd && strcmp(cmd, "save") == 0) {
+        cJSON *filenameObj = cJSON_GetObjectItem(arr, "filename");
+        const char *filename = cJSON_GetStringValue(filenameObj);
+        cJSON *textObj = cJSON_GetObjectItem(arr, "text");
+        const char *text = cJSON_GetStringValue(textObj);
+        int ok = text && saveFile(text, filename) == 0;
+        printf("save: %s\n", ok ? "ok" : "failed");
+        cJSON_Delete(command);
+        return ok ? "{\"status\":\"ok\"}" : "{\"error\":\"save failed\"}";
+    }
+
+    printf("unbekannter cmd: %s\n", cmd ? cmd : "?");
+    cJSON_Delete(command);
+    return json;
 }

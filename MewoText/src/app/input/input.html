@@ -8,4 +8,8 @@
          [style.left]="cx() + 'ch'">
     </div>
   </div>
+    <div class="container">
+        <button class="save" (click)="save()"> save </button>
+        <input [value]=filename() (keydown)="$event.stopPropagation()" (input)="filename.set($any($event.target).value)">
+    </div>
 </div>

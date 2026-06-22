@@ -12,15 +12,10 @@ export class Input {
   cx = signal(0);
   cy = signal(0);
   text = signal<string[][]>([[]]);
+  filename = signal('default');
 
-  async sendInput(event: KeyboardEvent) {
+  sendInput(event: KeyboardEvent) {
     event.preventDefault();
-
-    await (window as any).sendInput({
-      cmd:    event.key,
-      row:    this.cy(),
-      column: this.cx()
-    });
 
     switch (event.key) {
       case 'Backspace':
@@ -57,6 +52,14 @@ export class Input {
           this.insertChar(event.key);
         }
     }
+  }
+
+  async save() {
+    await (window as any).sendInput({
+      cmd: 'save',
+      text: this.text().map(r => r.join('')).join('\n'),
+      filename: this.filename() + '.txt'
+    });
   }
 
   private clampCx() {

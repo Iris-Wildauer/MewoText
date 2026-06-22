@@ -7,9 +7,8 @@
 
 void printInput(const char *seq, const char *req, void *arg) {
     webview_t w = (webview_t)arg;
-    cJSON *obj = parseJSON(req);
-    printf("Argumente: %s\n", req);
-    webview_return(w, seq, 0, req);
+    const char *result = processCommand(req);
+    webview_return(w, seq, 0, result);
 }
 
 
@@ -20,6 +19,7 @@ int main(void) {
     webview_navigate(w, "http://localhost:4200/");
     webview_bind(w, "sendInput", printInput, w);
     webview_bind(w, "onSearchChange", printInput, w);
+    webview_bind(w, "save", printInput, w);
     webview_run(w);
     webview_destroy(w);
     return 0;
