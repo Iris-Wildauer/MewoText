@@ -10,6 +10,10 @@
   </div>
     <div class="container">
         <button class="save" (click)="save()"> save </button>
+        <input type="file" #fp style="display:none"
+               (change)="onFileSelected($event)"
+               (keydown)="$event.stopPropagation()" />
+        <button class="save" (click)="fp.click()"> load </button>
         <input [value]=filename() (keydown)="$event.stopPropagation()" (input)="filename.set($any($event.target).value)">
     </div>
 </div>

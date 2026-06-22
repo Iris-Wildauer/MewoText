@@ -54,6 +54,16 @@ export class Input {
     }
   }
 
+  async onFileSelected(e: Event) {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    this.filename.set(file.name.replace(/\.txt$/, ''));
+    const content = await file.text();
+    this.text.set(content.split('\n').map(line => line.split('')));
+    this.cx.set(0);
+    this.cy.set(0);
+  }
+
   async save() {
     await (window as any).sendInput({
       cmd: 'save',
