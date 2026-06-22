@@ -12,6 +12,6 @@ core: editor_core.c
 	$(CC) editor_core.c -o editor_core -Wall -Wextra -pedantic -std=c99
 
 clean:
-	rm -f basic_example
+	rm -f mewo
 
 #-framework Webkit

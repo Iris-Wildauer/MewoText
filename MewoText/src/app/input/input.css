@@ -6,8 +6,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    color: white;
-    font-family: sans-serif;
+    color: #fff0e9;
 }
 
 .textfield {
@@ -17,10 +16,9 @@
     white-space: pre;
 }
 
-.editor   { position: relative; font-family: monospace; }
-.row      { height: 20px; white-space: pre; }
-.grid-row { min-height: 20px; white-space: pre; font-family: monospace; }
+.editor   { position: relative; font-family: monospace; font-size: 16px; line-height: 20px; color: black; }
+.grid-row { height: 20px; white-space: pre; }
 .cursor   { position: absolute; width: 2px; height: 20px;
-            background: white; animation: blink 1s step-end infinite; }
+            background: black; animation: blink 1s step-end infinite; }
 
 @keyframes blink { 50% { opacity: 0; } }
