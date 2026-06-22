@@ -9,17 +9,41 @@
 #import <Foundation/Foundation.h>
 
 void startDevServer() {
-    int pfds[2];
-    char buf[30];
-    pipe(pfds);
+    int fds[2];
+    int fds2[2];
+    char buf[100];
+    pipe(fds);
+    pipe(fds2);
     int pid = fork();
+    if (pid < 0) exit(1);
+
     if (pid == 0) {
+        dup2(fds2[1], STDOUT_FILENO);
+        close(fds[0]); close(fds[1]);
+        close(fds2[0]); close(fds2[1]);
         chdir("MewoText");
-        execlp("npm","npm","start", (char*)NULL);
+        execlp("stdbuf", "stdbuf", "-oL", "npm", "start", (char*)NULL);
+        exit(1);
+    }
+
+    int pid2 = fork();
+
+    if (pid2 == 0) {
+        dup2(fds2[0], STDIN_FILENO);
+        dup2(fds[1], STDOUT_FILENO);
+        close(fds[0]); close(fds[1]);
+        close(fds2[0]); close(fds2[1]);
+        execlp("grep","grep","--line-buffered", "Local:", (char*)NULL);
         exit(1);
     }
     else {
-        wait(NULL);
+        close(fds[1]);
+        close(fds2[1]);
+        close(fds2[0]);
+        dup2(fds[0], STDIN_FILENO);
+        read(STDIN_FILENO,buf, 100);
+        printf("%s",buf);
+        fflush(stdout);
     }
 }
 
