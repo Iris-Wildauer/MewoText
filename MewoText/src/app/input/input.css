@@ -2,18 +2,10 @@
     width: 100vw;
     height: 100vh;
     background-color: #fff0e9;
-
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     color: #fff0e9;
-}
-
-.textfield {
-    color: black;
-    align-items: flex-start;
-    justify-content: left;
-    white-space: pre;
 }
 
 .editor   { position: relative; font-family: monospace; font-size: 16px; line-height: 20px; color: black; }
@@ -34,9 +26,4 @@
     height: 40px;
     font-size: 18px;
     background-color: pink;
-}
-
-.input {
-    width: 20px;
-    height: 20px;
 }

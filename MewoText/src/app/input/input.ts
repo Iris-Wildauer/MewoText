@@ -1,9 +1,8 @@
 import {Component, signal} from '@angular/core';
-import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-input',
-  imports: [FormsModule],
+  imports: [],
   templateUrl: './input.html',
   styleUrl: './input.css',
 })

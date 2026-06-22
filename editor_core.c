@@ -24,13 +24,11 @@ const char *processCommand(const char *json) {
         const char *filename = cJSON_GetStringValue(filenameObj);
         cJSON *textObj = cJSON_GetObjectItem(arr, "text");
         const char *text = cJSON_GetStringValue(textObj);
-        int ok = text && saveFile(text, filename) == 0;
-        printf("save: %s\n", ok ? "ok" : "failed");
+        int ok = text && filename && saveFile(text, filename) == 0;
         cJSON_Delete(command);
         return ok ? "{\"status\":\"ok\"}" : "{\"error\":\"save failed\"}";
     }
 
-    printf("unbekannter cmd: %s\n", cmd ? cmd : "?");
     cJSON_Delete(command);
     return json;
 }
